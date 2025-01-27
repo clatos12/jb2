@@ -16,6 +16,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/productos/{id}/edit', [ProductoController::class, 'edit'])->name('productos.edit'); // Editar producto
     Route::put('/productos/{id}', [ProductoController::class, 'update'])->name('productos.update'); // Actualizar producto
     Route::delete('/productos/{id}', [ProductoController::class, 'destroy'])->name('productos.destroy'); // Eliminar producto
-    Route::post('/productos/{id}/estado', [ProductoController::class, 'toggleEstado'])->name('productos.toggleEstado');//Botón para cambio de estado
-    
+    Route::patch('/productos/{id}/estado', [ProductoController::class, 'toggleEstado'])->name('productos.toggleEstado');//Botón para cambio de estado
 });

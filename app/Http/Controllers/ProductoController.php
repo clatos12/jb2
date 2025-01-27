@@ -10,10 +10,23 @@ class ProductoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Recupera todos los productos para mostrar en la vista index
-        $productos = Productos::all();
+        $productos = Productos::query();
+
+        // Filtrar por categoría si se seleccionó alguna
+        if ($request->has('categoria') && $request->categoria != '') {
+            $productos->where('categoria', $request->categoria);
+        }
+
+        // Filtrar por búsqueda si se proporcionó
+        if ($request->has('search')) {
+            $productos->where('titulo', 'like', '%' . $request->search . '%');
+        }
+
+        // Obtener productos con paginación
+        $productos = $productos->paginate(10);
+
         return view('productos.index', compact('productos'));
     }
 
@@ -22,7 +35,6 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        // Ya no se requiere obtener las categorías, eliminamos esa parte
         return view('productos.create');
     }
 
@@ -78,6 +90,8 @@ class ProductoController extends Controller
     {
         // Obtener el producto para editarlo
         $producto = Productos::findOrFail($id);
+
+        // Pasar el producto a la vista 'edit'
         return view('productos.edit', compact('producto'));
     }
 
@@ -132,7 +146,7 @@ class ProductoController extends Controller
         // Guardar los cambios
         $producto->save();
     
-        // Redirigir con mensaje de éxito 11
+        // Redirigir con mensaje de éxito
         return redirect()->route('productos.index')->with('success', 'Estado del producto actualizado');
     }
 

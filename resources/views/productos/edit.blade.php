@@ -4,10 +4,11 @@
 
 <div class="container">
     <div class="row">
-        <h2>Añadir un nuevo producto</h2>
+        <h2>Editar Producto</h2>
         <hr>
-        <form action="{{ route('productos.store') }}" method="post" enctype="multipart/form-data" class="col-lg-7">
+        <form action="{{ route('productos.update', $producto->id) }}" method="post" enctype="multipart/form-data" class="col-lg-7">
             @csrf
+            @method('PUT') <!-- Esto es importante para indicar que es una actualización -->
 
             <!-- Mostrar errores de validación -->
             @if ($errors->any())
@@ -23,19 +24,22 @@
             <!-- Campo Título -->
             <div class="form-group">
                 <label for="titulo">Título</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" value="{{ old('titulo') }}" required />
+                <input type="text" class="form-control" id="titulo" name="titulo" value="{{ old('titulo', $producto->titulo) }}" required />
             </div>
 
             <!-- Campo Descripción -->
             <div class="form-group">
                 <label for="descripcion">Descripción</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" required>{{ old('descripcion') }}</textarea>
+                <textarea class="form-control" id="descripcion" name="descripcion" required>{{ old('descripcion', $producto->descripcion) }}</textarea>
             </div>
 
             <!-- Campo Fotografía -->
             <div class="form-group">
                 <label for="fotografia">Fotografía</label>
                 <input type="file" class="form-control" id="fotografia" name="fotografia" />
+                @if($producto->fotografia)
+                    <img src="{{ asset('storage/' . $producto->fotografia) }}" alt="Imagen actual" width="100" />
+                @endif
             </div>
 
             <!-- Categoría Principal -->
@@ -43,12 +47,12 @@
                 <label for="categoria_principal">Categoría Principal</label>
                 <select class="form-control" id="categoria_principal" name="categoria_principal" required>
                     <option value="">Seleccione una categoría principal</option>
-                    <option value="miscelaneos" {{ old('categoria_principal') == 'miscelaneos' ? 'selected' : '' }}>Misceláneos</option>
-                    <option value="integraciones" {{ old('categoria_principal') == 'integraciones' ? 'selected' : '' }}>Integraciones</option>
-                    <option value="divisores" {{ old('categoria_principal') == 'divisores' ? 'selected' : '' }}>Divisores</option>
-                    <option value="charolas" {{ old('categoria_principal') == 'charolas' ? 'selected' : '' }}>Charolas</option>
-                    <option value="cajas" {{ old('categoria_principal') == 'cajas' ? 'selected' : '' }}>Cajas</option>
-                    <option value="bines" {{ old('categoria_principal') == 'bines' ? 'selected' : '' }}>Bines</option>
+                    <option value="miscelaneos" {{ old('categoria_principal', $producto->categoria) == 'miscelaneos' ? 'selected' : '' }}>Misceláneos</option>
+                    <option value="integraciones" {{ old('categoria_principal', $producto->categoria) == 'integraciones' ? 'selected' : '' }}>Integraciones</option>
+                    <option value="divisores" {{ old('categoria_principal', $producto->categoria) == 'divisores' ? 'selected' : '' }}>Divisores</option>
+                    <option value="charolas" {{ old('categoria_principal', $producto->categoria) == 'charolas' ? 'selected' : '' }}>Charolas</option>
+                    <option value="cajas" {{ old('categoria_principal', $producto->categoria) == 'cajas' ? 'selected' : '' }}>Cajas</option>
+                    <option value="bines" {{ old('categoria_principal', $producto->categoria) == 'bines' ? 'selected' : '' }}>Bines</option>
                 </select>
             </div>
 
@@ -57,6 +61,7 @@
                 <label for="categoria">Subcategoría</label>
                 <select class="form-control" id="categoria" name="categoria" required>
                     <option value="">Seleccione una subcategoría</option>
+                    <!-- Aquí puedes agregar las opciones dinámicas, como en la vista crear -->
                 </select>
             </div>
 
@@ -64,13 +69,13 @@
             <div class="form-group">
                 <label for="estado">Estado</label>
                 <select class="form-control" id="estado" name="estado" required>
-                    <option value="1" {{ old('estado') == '1' ? 'selected' : '' }}>Disponible</option>
-                    <option value="0" {{ old('estado') == '0' ? 'selected' : '' }}>No disponible</option>
+                    <option value="1" {{ old('estado', $producto->estado) == '1' ? 'selected' : '' }}>Disponible</option>
+                    <option value="0" {{ old('estado', $producto->estado) == '0' ? 'selected' : '' }}>No disponible</option>
                 </select>
             </div>
 
             <a href="{{ route('productos.index') }}" class="btn btn-danger">Cancelar</a>
-            <button type="submit" class="btn btn-success">Crear Producto</button>
+            <button type="submit" class="btn btn-success">Actualizar Producto</button>
         </form>
     </div>
 </div>
@@ -127,6 +132,12 @@
                 });
             }
         });
+
+        // Preselecciona la subcategoría actual del producto
+        const categoriaSeleccionada = "{{ old('categoria', $producto->categoria) }}";
+        if (categoriaSeleccionada) {
+            categoria.value = categoriaSeleccionada;
+        }
     });
 </script>
 
