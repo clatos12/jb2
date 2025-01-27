@@ -132,7 +132,7 @@ class ProductoController extends Controller
         // Guardar los cambios
         $producto->save();
     
-        // Redirigir con mensaje de éxito
+        // Redirigir con mensaje de éxito 11
         return redirect()->route('productos.index')->with('success', 'Estado del producto actualizado');
     }
 
