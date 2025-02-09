@@ -32,6 +32,8 @@
   --danger: #dc3545;
   --light: #f8f9fa;
   --dark: #343a40;
+  --bs-link-color: #006976; /* Color normal */
+  --bs-link-hover-color: #065b62; /* Color al pasar el ratón */
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -39,6 +41,7 @@
   --breakpoint-xl: 1200px;
   --font-family-sans-serif: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
 }
 
 *,
@@ -159,13 +162,13 @@ sup {
 }
 
 a {
-  color: #007bff;
+  color: #006976;
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #0056b3;
+  color:  #065b62;
   text-decoration: none;
 }
 

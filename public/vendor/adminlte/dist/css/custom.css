@@ -1,0 +1,8 @@
+/* Asegúrate de que estos estilos sean más específicos */
+body a {
+    color: var(--bs-link-color) !important;
+}
+
+body a:hover {
+    color: var(--bs-link-hover-color) !important;
+}

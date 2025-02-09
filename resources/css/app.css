@@ -1,4 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Sobrescribir los colores de los enlaces */
+@layer base {
+  :root {
+    --bs-link-color: #006976;
+    --bs-link-hover-color: #065b62;
+  }
+}
+
 @import 'select2/dist/css/select2.min.css';

@@ -47,7 +47,7 @@ class ProductoController extends Controller
         $validated = $request->validate([
             'titulo' => 'required|string|max:255',
             'descripcion' => 'required|string',
-            'fotografia' => 'nullable|image|mimes:jpg,png,jpeg,gif',
+            'fotografia' => 'nullable|image|mimes:jpg,png,jpeg,gif,webp',
             'categoria' => 'required|string|max:255',  // Campo categoría ya como string
             'estado' => 'required|boolean', // Estado del producto (disponible o no)
         ]);
@@ -104,7 +104,7 @@ class ProductoController extends Controller
         $validated = $request->validate([
             'titulo' => 'required|string|max:255',
             'descripcion' => 'required|string',
-            'fotografia' => 'nullable|image|mimes:jpg,png,jpeg,gif',
+            'fotografia' => 'nullable|image|mimes:jpg,png,jpeg,gif,webp',
             'categoria' => 'required|string|max:255',  // Campo categoría ya como string
             'estado' => 'required|boolean',
         ]);
