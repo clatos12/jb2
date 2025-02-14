@@ -1,7 +1,39 @@
 @extends('adminlte::page')
 
 @section('content')
+<style>
+        /* Barra lateral con color principal */
+        .main-sidebar {
+            background-color: #006976 !important; /* Color principal */
+        }
 
+        /* Enlaces en la barra lateral */
+        .sidebar .nav-link {
+            color: #ffffff !important; /* Texto blanco */
+        }
+
+        /* Color de los enlaces al pasar el mouse */
+        .sidebar .nav-link:hover {
+            background-color: #065b62 !important; /* Color de fondo al pasar el mouse */
+            color: #ffffff !important; /* Mantener el texto blanco */
+        }
+
+        /* Enlace seleccionado en la barra lateral */
+        .sidebar .nav-link.active {
+            background-color: #065b62 !important; /* Color secundario cuando se selecciona */
+            color: #ffffff !important; /* Texto blanco */
+        }
+
+        /* Estilo de la barra lateral cuando está colapsada */
+        .sidebar-collapse .nav-link {
+            color: #ffffff !important;
+        }
+
+        /* Asegurarse de que los íconos de la barra lateral también se muestren blancos */
+        .sidebar .nav-icon {
+            color: #ffffff !important;
+        }
+    </style>
 <div class="container">
     <div class="row">
         <h2>Editar Producto</h2>

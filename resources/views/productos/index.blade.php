@@ -3,25 +3,53 @@
 @section('title', 'Productos')
 
 @section('content')
+    <style>
+        /* Barra lateral con color principal */
+        .main-sidebar {
+            background-color: #006976 !important; /* Color principal */
+        }
+
+        /* Enlaces en la barra lateral */
+        .sidebar .nav-link {
+            color: #ffffff !important; /* Texto blanco */
+        }
+
+        /* Color de los enlaces al pasar el mouse */
+        .sidebar .nav-link:hover {
+            background-color: #065b62 !important; /* Color de fondo al pasar el mouse */
+            color: #ffffff !important; /* Mantener el texto blanco */
+        }
+
+        /* Enlace seleccionado en la barra lateral */
+        .sidebar .nav-link.active {
+            background-color: #065b62 !important; /* Color secundario cuando se selecciona */
+            color: #ffffff !important; /* Texto blanco */
+        }
+
+        /* Estilo de la barra lateral cuando está colapsada */
+        .sidebar-collapse .nav-link {
+            color: #ffffff !important;
+        }
+
+        /* Asegurarse de que los íconos de la barra lateral también se muestren blancos */
+        .sidebar .nav-icon {
+            color: #ffffff !important;
+        }
+    </style>
+
     <div class="container">
         <div class="row mb-3">
             <div class="col-12 d-flex justify-content-between align-items-center">
-                <!-- Título de la página -->
                 <h2>Lista de Productos</h2>
-                
-                <!-- Botón para crear un nuevo producto (ubicado en la parte superior derecha) -->
                 <a href="{{ route('productos.create') }}" class="btn btn-success">Crear Producto</a>
             </div>
         </div>
 
-        <!-- Filtro y tabla en el mismo contenedor -->
         <div class="row">
             <div class="col-md-12">
-                <!-- Formulario de filtros (ubicado justo encima de la tabla) -->
                 <form method="GET" action="{{ route('productos.index') }}">
                     <div class="card p-3 mb-3">
                         <div class="row">
-                            <!-- Selector de Categoría -->
                             <div class="col-md-3 col-sm-12 mb-2">
                                 <label for="categoria">Categoría</label>
                                 <select name="categoria" id="categoria" class="form-control">
@@ -44,13 +72,11 @@
                                 </select>
                             </div>
 
-                            <!-- Buscador por título -->
                             <div class="col-md-6 col-sm-12 mb-2">
                                 <label for="search">Buscar por título</label>
                                 <input type="text" name="search" value="{{ request('search') }}" id="search" class="form-control" placeholder="Buscar por título">
                             </div>
 
-                            <!-- Botón de Filtrar -->
                             <div class="col-md-3 col-sm-12 mb-2 d-flex align-items-end">
                                 <button type="submit" class="btn btn-primary btn-block">Filtrar</button>
                             </div>
@@ -62,7 +88,6 @@
 
         <div class="row">
             <div class="col-md-12">
-                <!-- Tabla de productos -->
                 <div class="card p-3">
                     <table class="table table-striped">
                         <thead>
@@ -87,10 +112,9 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <!-- Botón para alternar el estado del producto -->
                                         <form action="{{ route('productos.toggleEstado', $producto->id) }}" method="POST" style="display:inline;">
                                             @csrf
-                                            @method('POST')
+                                            @method('PATCH')  
                                             <button type="submit" class="btn btn-sm {{ $producto->estado ? 'btn-success' : 'btn-danger' }}">
                                                 {{ $producto->estado ? 'Disponible' : 'No disponible' }}
                                             </button>
@@ -109,11 +133,9 @@
                         </tbody>
                     </table>
 
-                    <!-- Paginación -->
                     {{ $productos->links() }}
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
