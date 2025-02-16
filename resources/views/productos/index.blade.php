@@ -2,11 +2,14 @@
 
 @section('title', 'Productos')
 
+<link rel="icon" type="image/x-icon" href="{{ asset('img/logos/COLORJB.ico') }}" />
+
 @section('content')
     <style>
         /* Barra lateral con color principal */
         .main-sidebar {
             background-color: #006976 !important; /* Color principal */
+            min-height: 100vh; /* Aseguramos que el sidebar ocupe toda la altura de la pantalla */
         }
 
         /* Enlaces en la barra lateral */
@@ -34,6 +37,76 @@
         /* Asegurarse de que los íconos de la barra lateral también se muestren blancos */
         .sidebar .nav-icon {
             color: #ffffff !important;
+        }
+
+        /* Paginación personalizada */
+        .pagination {
+            justify-content: center;
+            margin-top: 20px;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%); /* Centrar las flechas en la parte inferior */
+        }
+
+        .pagination li a {
+            color: #006976;
+            font-size: 12px; /* Reducir aún más el tamaño de la fuente */
+            padding: 3px 6px; /* Reducir el padding */
+        }
+
+        .pagination .active a {
+            background-color: #006976;
+            border-color: #006976;
+            color: white;
+        }
+
+        /* Flechas de la paginación (ajustadas) */
+        .pagination .page-item a {
+            font-size: 16px; /* Flechas más pequeñas */
+            padding: 0 8px; /* Reducir el tamaño de las flechas */
+        }
+
+        /* Contenedor de la tabla con scroll horizontal */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        /* Limitar tamaño de las imágenes */
+        .table img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        /* Footer con estilo blanco, oculto por defecto y visible al llegar al final */
+        .footer {
+            position: fixed;
+            bottom: -100px; /* Inicialmente fuera de la vista */
+            left: 0;
+            right: 0;
+            background-color: white;
+            color: #006976;
+            text-align: center;
+            padding: 10px 0;
+            transition: bottom 0.3s ease; /* Transición suave */
+        }
+
+        /* Aparece cuando se hace scroll hasta el final */
+        .footer.show {
+            bottom: 0; /* Mostrar al final de la página */
+        }
+
+        /* Asegurar que el contenido principal no quede oculto debajo del footer */
+        .content-wrapper {
+            padding-bottom: 50px;
+            min-height: 100vh; /* Aseguramos que el contenido ocupe todo el alto disponible */
+        }
+
+        /* Aseguramos que el contenido se ajuste al alto del sidebar */
+        .content-wrapper, .main-sidebar {
+            display: flex;
+            flex-direction: column;
         }
     </style>
 
@@ -89,53 +162,75 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card p-3">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Título</th>
-                                <th>Descripción</th>
-                                <th>Fotografía</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($productos as $producto)
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <td>{{ $producto->titulo }}</td>
-                                    <td>{{ $producto->descripcion }}</td>
-                                    <td>
-                                        @if ($producto->fotografia)
-                                            <img src="{{ asset('storage/' . $producto->fotografia) }}" alt="Imagen de {{ $producto->titulo }}" style="width: 100px; height: 100px;">
-                                        @else
-                                            No disponible
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('productos.toggleEstado', $producto->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('PATCH')  
-                                            <button type="submit" class="btn btn-sm {{ $producto->estado ? 'btn-success' : 'btn-danger' }}">
-                                                {{ $producto->estado ? 'Disponible' : 'No disponible' }}
-                                            </button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm">Editar</a>
-                                        <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este producto?')">Eliminar</button>
-                                        </form>
-                                    </td>
+                                    <th>Título</th>
+                                    <th>Descripción</th>
+                                    <th>Fotografía</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($productos as $producto)
+                                    <tr>
+                                        <td>{{ $producto->titulo }}</td>
+                                        <td>{{ $producto->descripcion }}</td>
+                                        <td>
+                                            @if ($producto->fotografia)
+                                                <img src="{{ asset('storage/' . $producto->fotografia) }}" alt="Imagen de {{ $producto->titulo }}">
+                                            @else
+                                                No disponible
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('productos.toggleEstado', $producto->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('PATCH')  
+                                                <button type="submit" class="btn btn-sm {{ $producto->estado ? 'btn-success' : 'btn-danger' }}">
+                                                    {{ $producto->estado ? 'Disponible' : 'No disponible' }}
+                                                </button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                                            <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este producto?')">Eliminar</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
 
                     {{ $productos->links() }}
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Tu Empresa. Todos los derechos reservados.</p>
+    </div>
+
+@endsection
+
+@section('js')
+    <script>
+        // Mostrar el footer al hacer scroll hasta el final de la página
+        window.addEventListener('scroll', function() {
+            const footer = document.querySelector('.footer');
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                footer.classList.add('show');
+            } else {
+                footer.classList.remove('show');
+            }
+        });
+    </script>
 @endsection
