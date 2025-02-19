@@ -1,18 +1,18 @@
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-      <ul class="navbar-nav">
+    <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         {{-- ruta home --}}
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="{{url('admin/dashboard')}}" class="nav-link" style="color: #A9AC5D">Inicio</a>
+            <a href="{{url('admin/dashboard')}}" class="nav-link">Inicio</a>
         </li>
-      </ul>
+    </ul>
         
-      <!-- Right navbar links -->
-      <ul class="navbar-nav ml-auto">
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
         {{-- <li class="nav-item">
           <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -139,3 +139,20 @@
       
     </nav>
     <!-- /.navbar -->
+
+    <!-- Estilo personalizado para mantener el texto gris oscuro -->
+    <style>
+        /* Mantener el texto gris oscuro en el navbar */
+        .navbar-nav .nav-link {
+            color: rgb(104, 104, 98) !important; /* Gris oscuro */
+        }
+
+        .navbar-expand .navbar-nav .nav-link {
+            color: rgb(104, 104, 98) !important; /* Gris oscuro */
+        }
+
+        /* Mantener el color gris oscuro en el texto aunque el sidebar esté colapsado */
+        .main-header.navbar-light .navbar-nav .nav-link {
+            color: rgb(104, 104, 98) !important; /* Gris oscuro */
+        }
+    </style>
