@@ -4,8 +4,6 @@
 
 @section('content')
     
-    </style>
-
     <div class="container">
         <div class="row mb-3">
             <div class="col-12 d-flex justify-content-between align-items-center">
@@ -103,18 +101,10 @@
                             </tbody>
                         </table>
                     </div>
-
-                    {{ $productos->links() }}
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <div class="footer">
-        <p>&copy; 2025 Tu Empresa. Todos los derechos reservados.</p>
-    </div>
-
 @endsection
 
 @section('js')
