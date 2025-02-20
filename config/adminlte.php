@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'JB Tecnipack',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -62,9 +62,9 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
-
-    'logo' => '<b>.</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/logo.png',
+    'title' => 'JB Tecnipack',
+    'logo' => '',
+    'logo_img' => 'img/logos/COMPLETO.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/logo.png',
+            'path' => 'img/logo/COMPLETO.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -113,7 +113,7 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/logo.png',
+            'path' => 'img/logos/COMPLETO.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
