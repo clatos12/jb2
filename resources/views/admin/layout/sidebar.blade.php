@@ -42,7 +42,7 @@
                 </li>
 
                 <!-- Sección de Administración -->
-                <?php $active = (Session::get('page') == "dashboard" || Session::get('page') == "update-admin-details" || Session::get('page') == "update-password" || Session::get('page') == "add-admin") ? "active" : ""; ?>
+                <?php $active = (Session::get('page') == "dashboard" || Session::get('page') == "perfil" || Session::get('page') == "usuarios" || Session::get('page') == "usuarios/crear") ? "active" : ""; ?>
                 <li class="nav-item menu-open">
                     <a href="#" class="nav-link {{$active}}">
                         <i class="nav-icon fas fa-user-alt"></i>
@@ -53,21 +53,21 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{url('admin/update-password')}}" class="nav-link">
+                            <a href="{{url('usuarios')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p style="color: #E8E1DB">Actualizar Contraseña</p>
+                                <p style="color: #E8E1DB">Ver Usuarios</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('admin/update-admin-details')}}" class="nav-link">
+                            <a href="{{url('perfil')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p style="color: #E8E1DB">Ver Perfil</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('admin/add-admin')}}" class="nav-link">
+                            <a href="{{url('usuarios/crear')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p style="color: #E8E1DB">Registrar Más Admins</p>
+                                <p style="color: #E8E1DB">Registrar Más Usuarios</p>
                             </a>
                         </li>
                     </ul>

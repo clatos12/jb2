@@ -104,6 +104,9 @@
             <a href="{{ route('productos.index') }}" class="btn btn-danger">Cancelar</a>
             <button type="submit" class="btn btn-success">Crear Producto</button>
         </form>
+        <h2> </h2>
+        <h2> </h2>
+        <h2> </h2>
     </div>
 </div>
 

@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController; // Importa el controlador de productos
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+
 
 
 // Ruta para la página de bienvenida
@@ -19,8 +21,15 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/productos/{id}', [ProductoController::class, 'update'])->name('productos.update'); // Actualizar producto
     Route::delete('/productos/{id}', [ProductoController::class, 'destroy'])->name('productos.destroy'); // Eliminar producto
     Route::patch('/productos/{id}/estado', [ProductoController::class, 'toggleEstado'])->name('productos.toggleEstado');//Botón para cambio de estado
-    Route::match(['get','post'],'update-password',[AdminController::class,'updatePassword']);
-        Route::post('check-current-password',[AdminController::class,'checkCurrentPassword']);
-        Route::match(['get','post'],'update-admin-details',[AdminController::class,'updateAdminDetails'])->name('update-admin-details');
-        Route::get('logout',[AdminController::class,'logout'])->name('logout');
+    Route::get('/perfil', [ProfileController::class, 'index'])->name('perfil');
+    Route::put('/perfil', [ProfileController::class, 'update'])->name('perfil.update');
+    Route::get('/usuarios/crear', [ProfileController::class, 'create'])->name('usuarios.create');
+    Route::post('/usuarios/crear', [ProfileController::class, 'store'])->name('usuarios.store');
+    // Rutas para mostrar, editar y eliminar usuarios
+    Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios.index');
+    Route::get('/usuarios/{user}/edit', [UserController::class, 'edit'])->name('usuarios.edit');
+    Route::put('/usuarios/{user}', [UserController::class, 'update'])->name('usuarios.update');
+    Route::delete('/usuarios/{user}', [UserController::class, 'destroy'])->name('usuarios.destroy');
+
+
 });
