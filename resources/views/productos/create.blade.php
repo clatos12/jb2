@@ -81,6 +81,7 @@
                     <option value="charolas" {{ old('categoria_principal') == 'charolas' ? 'selected' : '' }}>Charolas</option>
                     <option value="cajas" {{ old('categoria_principal') == 'cajas' ? 'selected' : '' }}>Cajas</option>
                     <option value="bines" {{ old('categoria_principal') == 'bines' ? 'selected' : '' }}>Bines</option>
+                    <option value="ceras" {{ old('categoria_principal') == 'ceras' ? 'selected' : '' }}>Ceras</option>
                 </select>
             </div>
 
@@ -139,6 +140,9 @@
             bines: [
                 { value: 'bines_inyectado', text: 'Bines Inyectado' },
                 { value: 'bines_corrugado', text: 'Bines Corrugado' },
+            ],
+            ceras: [
+                { value: 'ceras_cerasESD', text: 'Ceras ESD' },
             ],
         };
 

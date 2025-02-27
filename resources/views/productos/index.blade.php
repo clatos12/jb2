@@ -36,6 +36,7 @@
                                     <option value="cajas_carton" {{ request('categoria') == 'cajas_carton' ? 'selected' : '' }}>Cajas - Cartón</option>
                                     <option value="bines_inyectado" {{ request('categoria') == 'bines_inyectado' ? 'selected' : '' }}>Bines - Inyectado</option>
                                     <option value="bines_corrugado" {{ request('categoria') == 'bines_corrugado' ? 'selected' : '' }}>Bines - Corrugado</option>
+                                    <option value="ceras_cerasESD" {{ request('categoria') == 'ceras_cerasESD' ? 'selected' : '' }}>Ceras - CerasESD</option>
                                 </select>
                             </div>
 
