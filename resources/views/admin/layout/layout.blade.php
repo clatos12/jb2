@@ -233,7 +233,7 @@
             </div>
         </div>
     </div>
-
+<!-- 
     @include('admin.layout.footer')
 
     <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
@@ -254,7 +254,7 @@
             $('.select2').select2();
         });
     </script>
-
+ -->
 </body>
 
 </html>

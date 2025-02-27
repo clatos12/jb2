@@ -9,7 +9,7 @@ use App\Http\Controllers\UserController;
 
 // Ruta para la página de bienvenida
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::middleware(['auth'])->group(function () {

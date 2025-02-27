@@ -2,7 +2,7 @@
 <aside class="main-sidebar elevation-4">
 
     <!-- Brand Logo -->
-    <a href="{{url('admin')}}" class="brand-link">
+    <a href="{{url('productos')}}" class="brand-link">
         <div class="brand-logo-container" style="display: flex; justify-content: center; align-items: center; padding: .5px;">
             <img id="logo-img" src="{{ asset('img/logos/BLANCO.png') }}" alt="JB Technipack Logo" 
                 style="max-height: 40px; width: auto;">

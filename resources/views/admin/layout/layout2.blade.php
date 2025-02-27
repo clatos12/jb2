@@ -138,6 +138,7 @@
             </div>
         </div>
     </div>
+<!-- 
 
     @include('admin.layout.footer')
 
@@ -159,7 +160,7 @@
             $('.select2').select2();
         });
     </script>
-
+-->
 </body>
 
 </html>
