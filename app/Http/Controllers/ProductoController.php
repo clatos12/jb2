@@ -147,7 +147,8 @@ class ProductoController extends Controller
         $producto->save();
     
         // Redirigir con mensaje de éxito
-        return redirect()->route('productos.index')->with('success', 'Estado del producto actualizado');
+        return redirect()->to(url()->previous())->with('success', 'Estado del producto actualizado');
+
     }
 
     /**
