@@ -81,8 +81,8 @@
                     <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
-           <!-- <ul class="nav nav-treeview">
-             <li class="nav-item">
+            <ul class="nav nav-treeview">
+             <!--<li class="nav-item">
                     <a href="{{url('clientes')}}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p style="color: #E8E1DB">Ver Clientes</p>
