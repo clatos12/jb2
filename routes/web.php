@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController; // Importa el controlador de productos
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\ContactController;
 
 
 // Ruta para la página de bienvenida
@@ -36,6 +36,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/usuarios/{user}/edit', [UserController::class, 'edit'])->name('usuarios.edit');
         Route::put('/usuarios/{user}', [UserController::class, 'update'])->name('usuarios.update');
         Route::delete('/usuarios/{user}', [UserController::class, 'destroy'])->name('usuarios.destroy');
+
+        //clientes
+        Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
+        Route::get('/contacts/{id}', [ContactController::class, 'show'])->name('contacts.show');
     });
 //})
 ;
