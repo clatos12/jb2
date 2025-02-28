@@ -24,12 +24,16 @@ class ProductoController extends Controller
             $productos->where('titulo', 'like', '%' . $request->search . '%');
         }
 
+        // Ordenar según el parámetro 'order', por defecto ordena por título
+        $order = $request->get('order', 'asc'); // Valor por defecto 'asc'
+        $productos->orderBy('created_at', $order); // Ordenar por la fecha de creación
+
+
         // Obtener productos con paginación
         $productos = $productos->paginate(10);
 
         return view('productos.index', compact('productos'));
     }
-
     /**
      * Show the form for creating a new resource.
      */

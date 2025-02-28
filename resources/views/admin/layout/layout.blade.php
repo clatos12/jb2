@@ -165,7 +165,15 @@
                                 <input type="text" name="search" value="{{ request('search') }}" id="search" class="form-control" placeholder="Buscar por título">
                             </div>
 
-                            <div class="col-md-3 col-sm-12 mb-2 d-flex align-items-end">
+                            <div class="col-md-2 col-sm-12 mb-2">
+                                <label for="order">Ordenar</label>
+                                <select name="order" id="order" class="form-control">
+                                    <option value="asc" {{ request('order') == 'asc' ? 'selected' : '' }}>Más antiguo</option>
+                                    <option value="desc" {{ request('order') == 'desc' ? 'selected' : '' }}>Más reciente</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-1 col-sm-12 mb-2 d-flex align-items-end">
                                 <button type="submit" class="btn btn-primary btn-block">Filtrar</button>
                             </div>
                         </div>
@@ -173,56 +181,101 @@
                 </form>
             </div>
         </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card p-3">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Título</th>
-                                        <th>Descripción</th>
-                                        <th>Fotografía</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($productos as $producto)
-                                        <tr>
-                                            <td>{{ $producto->titulo }}</td>
-                                            <td>{{ $producto->descripcion }}</td>
-                                            <td>
-                                                @if ($producto->fotografia)
-                                                    <img src="{{ asset('storage/' . $producto->fotografia) }}" alt="Imagen de {{ $producto->titulo }}">
-                                                @else
-                                                    No disponible
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <form action="{{ route('productos.toggleEstado', $producto->id) }}" method="POST" style="display:inline;">
-                                                    @csrf
-                                                    @method('PATCH')  
-                                                    <button type="submit" class="btn btn-sm {{ $producto->estado ? 'btn-success' : 'btn-danger' }}">
-                                                        {{ $producto->estado ? 'Disponible' : 'No disponible' }}
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm">Editar</a>
-                                                <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este producto?')">Eliminar</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+        <div class="row">
+    <div class="col-md-12">
+        <div class="card p-3">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Descripción</th>
+                            <th>Fotografía</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($productos as $producto)
+                            <tr>
+                                <td>{{ $producto->titulo }}</td>
+                                <td>
+                                    @php
+                                        $descripcionArray = explode(' ', $producto->descripcion);
+                                        $descripcionPreview = implode(' ', array_slice($descripcionArray, 0, 5));
+                                    @endphp
+                                    <!-- Mostrar solo las primeras 5 palabras -->
+                                    <span class="descripcion" id="desc-{{ $producto->id }}">
+                                        {{ $descripcionPreview }}{{ count($descripcionArray) > 5 ? '...' : '' }}
+                                    </span>
 
-                        </div>
-                    </div>
+                                    <!-- Mostrar el contenido completo en un span oculto -->
+                                    @if (count($descripcionArray) > 5)
+                                        <span class="full-description" id="full-desc-{{ $producto->id }}" style="display: none; white-space: pre-line;">
+                                            {{ $producto->descripcion }}
+                                        </span>
+                                        <!-- Botón para expandir o contraer la descripción -->
+                                        <button class="btn btn-link btn-sm" id="toggle-btn-{{ $producto->id }}" onclick="toggleDescription({{ $producto->id }})">
+                                            Ver más
+                                        </button>
+                                    @else
+                                        <span id="full-desc-{{ $producto->id }}" style="display: inline; white-space: pre-line;">
+                                            {{ $producto->descripcion }}
+                                        </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($producto->fotografia)
+                                        <img src="{{ asset('storage/' . $producto->fotografia) }}" alt="Imagen de {{ $producto->titulo }}">
+                                    @else
+                                        No disponible
+                                    @endif
+                                </td>
+                                <td>
+                                    <form action="{{ route('productos.toggleEstado', $producto->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('PATCH')  
+                                        <button type="submit" class="btn btn-sm {{ $producto->estado ? 'btn-success' : 'btn-danger' }}">
+                                            {{ $producto->estado ? 'Disponible' : 'No disponible' }}
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                                    <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este producto?')">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Agregar el script para mostrar/ocultar las descripciones -->
+<script>
+    function toggleDescription(id) {
+        var desc = document.getElementById('desc-' + id);
+        var fullDesc = document.getElementById('full-desc-' + id);
+        var btn = document.getElementById('toggle-btn-' + id);
+
+        if (fullDesc.style.display === "none") {
+            fullDesc.style.display = "inline";
+            desc.style.display = "none";
+            btn.textContent = "Ver menos";
+        } else {
+            fullDesc.style.display = "none";
+            desc.style.display = "inline";
+            btn.textContent = "Ver más";
+        }
+    }
+</script>
+
 
                     <!-- Paginación personalizada -->
                     <div class="pagination">
