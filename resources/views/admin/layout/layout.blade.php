@@ -141,21 +141,21 @@
                                 <label for="categoria">Categoría</label>
                                 <select name="categoria" id="categoria" class="form-control">
                                     <option value="">Todas</option>
-                                    <option value="miscelaneos_tapetes_esd" {{ request('categoria') == 'miscelaneos_tapetes_esd' ? 'selected' : '' }}>Misceláneos - Tapetes ESD</option>
-                                    <option value="miscelaneos_bolsas_esd" {{ request('categoria') == 'miscelaneos_bolsas_esd' ? 'selected' : '' }}>Misceláneos - Bolsas ESD</option>
-                                    <option value="miscelaneos_bancos_esd" {{ request('categoria') == 'miscelaneos_bancos_esd' ? 'selected' : '' }}>Misceláneos - Bancos ESD</option>
-                                    <option value="integraciones_mesas_trabajo" {{ request('categoria') == 'integraciones_mesas_trabajo' ? 'selected' : '' }}>Integraciones - Mesas de Trabajo</option>
-                                    <option value="integraciones_carros_lean" {{ request('categoria') == 'integraciones_carros_lean' ? 'selected' : '' }}>Integraciones - Carros Lean</option>
-                                    <option value="integraciones_accesorios" {{ request('categoria') == 'integraciones_accesorios' ? 'selected' : '' }}>Integraciones - Accesorios</option>
-                                    <option value="divisores" {{ request('categoria') == 'divisores' ? 'selected' : '' }}>Divisores</option>
-                                    <option value="charolas_termoformadas" {{ request('categoria') == 'charolas_termoformadas' ? 'selected' : '' }}>Charolas - Termoformadas</option>
-                                    <option value="charolas_inyectada" {{ request('categoria') == 'charolas_inyectada' ? 'selected' : '' }}>Charolas - Inyectada</option>
-                                    <option value="charolas_eva_esd" {{ request('categoria') == 'charolas_eva_esd' ? 'selected' : '' }}>Charolas - EVA ESD</option>
                                     <option value="cajas_inyectadas" {{ request('categoria') == 'cajas_inyectadas' ? 'selected' : '' }}>Cajas - Inyectadas</option>
                                     <option value="cajas_coroplast" {{ request('categoria') == 'cajas_coroplast' ? 'selected' : '' }}>Cajas - Coroplast</option>
                                     <option value="cajas_carton" {{ request('categoria') == 'cajas_carton' ? 'selected' : '' }}>Cajas - Cartón</option>
+                                    <option value="charolas_termoformadas" {{ request('categoria') == 'charolas_termoformadas' ? 'selected' : '' }}>Charolas - Termoformadas</option>
+                                    <option value="charolas_inyectada" {{ request('categoria') == 'charolas_inyectada' ? 'selected' : '' }}>Charolas - Inyectada</option>
+                                    <option value="charolas_eva_esd" {{ request('categoria') == 'charolas_eva_esd' ? 'selected' : '' }}>Charolas - EVA ESD</option>
+                                    <option value="divisores" {{ request('categoria') == 'divisores' ? 'selected' : '' }}>Divisores</option>
                                     <option value="bines_inyectado" {{ request('categoria') == 'bines_inyectado' ? 'selected' : '' }}>Bines - Inyectado</option>
                                     <option value="bines_corrugado" {{ request('categoria') == 'bines_corrugado' ? 'selected' : '' }}>Bines - Corrugado</option>
+                                    <option value="integraciones_mesas_trabajo" {{ request('categoria') == 'integraciones_mesas_trabajo' ? 'selected' : '' }}>Integraciones - Mesas de Trabajo</option>
+                                    <option value="integraciones_carros_lean" {{ request('categoria') == 'integraciones_carros_lean' ? 'selected' : '' }}>Integraciones - Carros Lean</option>
+                                    <option value="integraciones_accesorios" {{ request('categoria') == 'integraciones_accesorios' ? 'selected' : '' }}>Integraciones - Accesorios</option>
+                                    <option value="miscelaneos_tapetes_esd" {{ request('categoria') == 'miscelaneos_tapetes_esd' ? 'selected' : '' }}>Misceláneos - Tapetes ESD</option>
+                                    <option value="miscelaneos_bolsas_esd" {{ request('categoria') == 'miscelaneos_bolsas_esd' ? 'selected' : '' }}>Misceláneos - Bolsas ESD</option>
+                                    <option value="miscelaneos_bancos_esd" {{ request('categoria') == 'miscelaneos_bancos_esd' ? 'selected' : '' }}>Misceláneos - Bancos ESD</option>
                                     <option value="ceras_cerasESD" {{ request('categoria') == 'ceras_cerasESD' ? 'selected' : '' }}>Ceras - CerasESD</option>
                                 </select>
                             </div>
