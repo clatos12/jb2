@@ -16,7 +16,15 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                 <!-- Sección de Productos (ahora más arriba) -->
-                <?php $active = (Session::get('page') == "user-list" || Session::get('page') == "store") ? "active" : ""; ?>
+                
+                {{-- esto se deberia de prender cuando este activo arreglalo que no esta jalando --}}
+                {{-- esto es para el codigo del menu open --}}
+                @if(Session::get('page')=="productos/index" ||
+                Session::get('page')=="productos" || Session::get('page')=="add-product")
+                <?php $active = "active"; ?>
+                @else
+                <?php $active = ""; ?>
+                @endif                
                 <li class="nav-item menu-open">
                     <a href="#" class="nav-link {{$active}}">
                         <i class="nav-icon fas fa-box"></i>
@@ -24,13 +32,25 @@
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
+{{-- hasta aqui por cada menu desplegable --}}
+
+{{-- item de menu desplegable --}}
                     <ul class="nav nav-treeview">
+
                         <li class="nav-item">
-                            <a href="{{url('productos')}}" class="nav-link">
+                            {{-- codigo para tener activo cuando estes en esa ventana --}}
+                            @if(Session::get('page') == "productos")
+                                <?php $active = "active"; ?>
+                            @else
+                                <?php $active = ""; ?>
+                            @endif
+                            <a href="{{url('productos')}}" class="nav-link {{$active}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p style="color: #E8E1DB">Administrar Inventario</p>
                             </a>
                         </li>
+                        {{-- con esto se deberia de activar asi como en el ecotrack pero no lo hace --}}
+
                         <li class="nav-item">
                             <a href="{{url('productos/create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
