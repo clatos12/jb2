@@ -138,7 +138,7 @@
             </div>
         </div>
     </div>
-<!-- 
+
 
     @include('admin.layout.footer')
 
@@ -148,19 +148,27 @@
     <script src="{{ url('admin/plugins/select2/js/select2.full.min.js') }}"></script>
 
     <script>
-        $(document).ready(function () {
-            // Mostrar el footer solo cuando se haga scroll hasta el final
-            $(window).scroll(function() {
-                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                    $(".footer").addClass("show"); // Mostrar el footer al final
-                } else {
-                    $(".footer").removeClass("show"); // Ocultar el footer
-                }
-            });
-            $('.select2').select2();
-        });
+       $(document).ready(function () {
+    function checkFooterVisibility() {
+        const windowHeight = $(window).height();
+        const documentHeight = $(document).height();
+        const scrollTop = $(window).scrollTop();
+
+        if (scrollTop + windowHeight >= documentHeight - 20) {
+            $(".footer").fadeIn(); // Mostrar suavemente el footer
+        } else {
+            $(".footer").fadeOut(); // Ocultar suavemente el footer
+        }
+    }
+
+    $(window).on("scroll resize", checkFooterVisibility);
+    checkFooterVisibility(); // Comprobar al cargar la página
+
+    $('.select2').select2();
+});
+
     </script>
--->
+
 </body>
 
 </html>

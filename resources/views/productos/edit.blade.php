@@ -2,13 +2,13 @@
 
 @section('content')
 
-<div class="container">
-    <div class="row">
-        <h2>Editar Producto</h2>
-        <hr>
-        <form action="{{ route('productos.update', $producto->id) }}" method="post" enctype="multipart/form-data" class="col-lg-7">
+<div class="container d-flex flex-column align-items-center mt-4">
+    <h2 class="text-center mb-4">Editar Producto</h2> <!-- Centrado y con margen inferior -->
+
+    <div class="col-lg-7">
+        <form action="{{ route('productos.update', $producto->id) }}" method="post" enctype="multipart/form-data" class="p-4 bg-white">
             @csrf
-            @method('PUT') <!-- Esto es importante para indicar que es una actualización -->
+            @method('PUT')
 
             <!-- Mostrar errores de validación -->
             @if ($errors->any())
@@ -38,7 +38,9 @@
                 <label for="fotografia">Fotografía</label>
                 <input type="file" class="form-control" id="fotografia" name="fotografia" />
                 @if($producto->fotografia)
-                    <img src="{{ asset('storage/' . $producto->fotografia) }}" alt="Imagen actual" width="100" />
+                    <div class="mt-2">
+                        <img src="{{ asset('storage/' . $producto->fotografia) }}" alt="Imagen actual" width="100" />
+                    </div>
                 @endif
             </div>
 
@@ -57,11 +59,10 @@
             </div>
 
             <!-- Subcategoría -->
-            <div class="form-group" id="subcategoria-container">
+            <div class="form-group">
                 <label for="categoria">Subcategoría</label>
                 <select class="form-control" id="categoria" name="categoria" required>
                     <option value="">Seleccione una subcategoría</option>
-                    <!-- Aquí puedes agregar las opciones dinámicas, como en la vista crear -->
                 </select>
             </div>
 
@@ -74,11 +75,16 @@
                 </select>
             </div>
 
-            <a href="{{ route('productos.index') }}" class="btn btn-danger">Cancelar</a>
-            <button type="submit" class="btn btn-success">Actualizar Producto</button>
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{{ route('productos.index') }}" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-success">Actualizar Producto</button>
+            </div>
         </form>
     </div>
 </div>
+
+<!-- Espacio en blanco al final -->
+<div style="margin-bottom: 50px;"></div>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -114,15 +120,12 @@
 
         const categoriaPrincipal = document.getElementById('categoria_principal');
         const categoria = document.getElementById('categoria');
-        const subcategoriaContainer = document.getElementById('subcategoria-container');
 
         categoriaPrincipal.addEventListener('change', (event) => {
             const seleccion = event.target.value;
 
-            // Limpia las opciones de la subcategoría
             categoria.innerHTML = '<option value="">Seleccione una subcategoría</option>';
 
-            // Agrega las nuevas opciones según la categoría principal seleccionada
             if (subcategorias[seleccion]) {
                 subcategorias[seleccion].forEach(subcat => {
                     const option = document.createElement('option');
@@ -133,7 +136,6 @@
             }
         });
 
-        // Preselecciona la subcategoría actual del producto
         const categoriaSeleccionada = "{{ old('categoria', $producto->categoria) }}";
         if (categoriaSeleccionada) {
             categoria.value = categoriaSeleccionada;
