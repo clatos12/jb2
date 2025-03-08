@@ -11,6 +11,9 @@ use App\Http\Controllers\ContactController;
 Route::get('/', function () {
     return redirect()->route('login');
 });
+//Route::get('/register', function () {//descomentar para desactivar registrer
+//    return redirect()->route('login'); // Redirigir a la página de inicio de sesión
+//});
 
 Route::middleware(['auth'])->group(function () {
     // Rutas que empiezan con /admin
