@@ -2,7 +2,7 @@
 <aside class="main-sidebar elevation-4">
 
     <!-- Brand Logo -->
-    <a href="{{url('productos')}}" class="brand-link">
+    <a href="{{url('/index')}}" class="brand-link">
         <div class="brand-logo-container" style="display: flex; justify-content: center; align-items: center; padding: .5px;">
             <img id="logo-img" src="{{ asset('img/logos/BLANCO.png') }}" alt="JB Technipack Logo" 
                 style="max-height: 40px; width: auto;">
@@ -19,32 +19,19 @@
                 
                 {{-- esto se deberia de prender cuando este activo arreglalo que no esta jalando --}}
                 {{-- esto es para el codigo del menu open --}}
-                @if(Session::get('page')=="productos/index" ||
-                Session::get('page')=="productos" || Session::get('page')=="add-product")
-                <?php $active = "active"; ?>
-                @else
-                <?php $active = ""; ?>
-                @endif                
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link {{$active}}">
-                        <i class="nav-icon fas fa-box"></i>
-                        <p style="color: #E8E1DB">Productos
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-{{-- hasta aqui por cada menu desplegable --}}
+                <!-- Sección de Productos -->
+            <li class="nav-item @if(Session::get('page') == 'productos.index' || Session::get('page') == 'productos.create') menu-open @endif">
+                <a href="#" class="nav-link @if(Session::get('page') == 'productos.index' || Session::get('page') == 'productos.create') active @endif">
+                    <i class="nav-icon fas fa-box"></i>
+                    <p style="color: #E8E1DB">Productos
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
 
-{{-- item de menu desplegable --}}
+                    <!-- Items desplegables -->
                     <ul class="nav nav-treeview">
-
                         <li class="nav-item">
-                            {{-- codigo para tener activo cuando estes en esa ventana --}}
-                            @if(Session::get('page') == "productos")
-                                <?php $active = "active"; ?>
-                            @else
-                                <?php $active = ""; ?>
-                            @endif
-                            <a href="{{url('productos')}}" class="nav-link {{$active}}">
+                            <a href="{{ route('productos.index') }}" class="nav-link @if(Session::get('page') == 'productos.index') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p style="color: #E8E1DB">Administrar Inventario</p>
                             </a>
@@ -52,7 +39,7 @@
                         {{-- con esto se deberia de activar asi como en el ecotrack pero no lo hace --}}
 
                         <li class="nav-item">
-                            <a href="{{url('productos/create')}}" class="nav-link">
+                            <a href="{{url('productos/create')}}" class="nav-link @if(Session::get('page') == 'productos.create') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p style="color: #E8E1DB">Crear Productos</p>
                             </a>
@@ -61,59 +48,80 @@
                 </li>
 
                 <!-- Sección de Administración -->
-                <?php $active = (Session::get('page') == "dashboard" || Session::get('page') == "perfil" || Session::get('page') == "usuarios" || Session::get('page') == "usuarios/crear") ? "active" : ""; ?>
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link {{$active}}">
-                        <i class="nav-icon fas fa-user-alt"></i>
-                        <p style="color: #E8E1DB">
-                            Administración
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{url('usuarios')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p style="color: #E8E1DB">Ver Usuarios</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{url('perfil')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p style="color: #E8E1DB">Ver Perfil</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{url('usuarios/crear')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p style="color: #E8E1DB">Registrar Más Usuarios</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            <!-- Sección de Clientes -->
-            <?php $active =($clientsActive = (Session::get('page') == "clientes" || Session::get('page') == "contacts")) ? "active" : "";?>
-            <li class="nav-item menu-open">
-            <a href="#" class="nav-link {{$clientsActive}}">
-             <i class="nav-icon fas fa-users"></i>
-             <p style="color: #E8E1DB">
-                    Clientes
-                    <i class="right fas fa-angle-left"></i>
-                </p>
+<?php
+    $menuOpen = (Session::get('page') == "usuarios.index" || Session::get('page') == "perfil" || Session::get('page') == "usuarios.create") ? "menu-open" : "";
+    $activeAdmin = (Session::get('page') == "usuarios.index" || Session::get('page') == "perfil" || Session::get('page') == "usuarios.create") ? "active" : "";
+?>
+<li class="nav-item {{$menuOpen}}">
+    <a href="#" class="nav-link {{$activeAdmin}}">
+        <i class="nav-icon fas fa-user-alt"></i>
+        <p style="color: #E8E1DB">
+            Administración
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <!-- Ver Usuarios -->
+        <?php $activeUsuarios = Session::get('page') == "usuarios.index" ? "active" : ""; ?>
+        <li class="nav-item">
+            <a href="{{url('usuarios')}}" class="nav-link {{$activeUsuarios}}">
+                <i class="far fa-circle nav-icon"></i>
+                <p style="color: #E8E1DB">Ver Usuarios</p>
             </a>
-            <ul class="nav nav-treeview">
+        </li>
+
+        <!-- Ver Perfil -->
+        <?php $activePerfil = Session::get('page') == "perfil" ? "active" : ""; ?>
+        <li class="nav-item">
+            <a href="{{url('perfil')}}" class="nav-link {{$activePerfil}}">
+                <i class="far fa-circle nav-icon"></i>
+                <p style="color: #E8E1DB">Ver Perfil</p>
+            </a>
+        </li>
+
+        <!-- Registrar Más Usuarios -->
+        <?php $activeCrearUsuarios = Session::get('page') == "usuarios.create" ? "active" : ""; ?>
+        <li class="nav-item">
+            <a href="{{url('usuarios/crear')}}" class="nav-link {{$activeCrearUsuarios}}">
+                <i class="far fa-circle nav-icon"></i>
+                <p style="color: #E8E1DB">Registrar Más Usuarios</p>
+            </a>
+        </li>
+    </ul>
+</li>
+
+            <!-- Sección de Clientes -->
+<?php
+$menuOpenClientes = (Session::get('page') == "clientes" || Session::get('page') == "contacts") ? "menu-open" : "";
+$activeClientes = (Session::get('page') == "clientes" || Session::get('page') == "contacts") ? "active" : "";
+?>
+<li class="nav-item {{$menuOpenClientes}}">
+<a href="#" class="nav-link {{$activeClientes}}">
+    <i class="nav-icon fas fa-users"></i>
+    <p style="color: #E8E1DB">
+        Clientes
+        <i class="right fas fa-angle-left"></i>
+    </p>
+</a>
+<ul class="nav nav-treeview">
+    <!-- Solicitudes de Contactos -->
+    <?php $activeContacts = Session::get('page') == "contacts" ? "active" : ""; ?>
+    <li class="nav-item">
+        <a href="{{url('contacts')}}" class="nav-link {{$activeContacts}}">
+            <i class="far fa-circle nav-icon"></i>
+            <p style="color: #E8E1DB">Solicitudes de Contactos</p>
+        </a>
+    </li>
+</ul>
+</li>
+
              <!--<li class="nav-item">
                     <a href="{{url('clientes')}}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p style="color: #E8E1DB">Ver Clientes</p>
                     </a>
                 </li>-->
-             <li class="nav-item">
-                  <a href="{{url('contacts')}}" class="nav-link">
-                     <i class="far fa-circle nav-icon"></i>
-                     <p style="color: #E8E1DB">Solicitudes de Contactos</p>
-                  </a>
-             </li>
+             
            </ul>
         </li>
             </ul>

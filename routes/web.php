@@ -19,7 +19,7 @@ Route::middleware(['auth'])->group(function () {
     // Rutas que empiezan con /admin
     //Route::prefix('admin')->group(function () {
         // Rutas de productos
-        Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index'); // Listar productos
+        Route::get('/index', [ProductoController::class, 'index'])->name('productos.index'); // Listar productos
         Route::get('/productos/create', [ProductoController::class, 'create'])->name('productos.create'); // Crear producto
         Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store'); // Guardar producto
         Route::get('/productos/{id}/edit', [ProductoController::class, 'edit'])->name('productos.edit'); // Editar producto

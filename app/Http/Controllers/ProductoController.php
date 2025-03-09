@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Productos;  
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
 class ProductoController extends Controller
 {
     /**
@@ -12,6 +12,9 @@ class ProductoController extends Controller
      */
     public function index(Request $request)
     {
+
+        // Almacena en la sesión la página actual
+        Session::put('page', 'productos.index');
         $productos = Productos::query();
 
         // Filtrar por categoría si se seleccionó alguna
@@ -39,6 +42,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
+        // Actualiza la sesión con la página actual
+        Session::put('page', 'productos.create');
         return view('productos.create');
     }
 

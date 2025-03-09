@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
+
 
 class ProfileController extends Controller
 {
     // Mostrar el perfil del usuario
     public function index()
     {
+        Session::put('page', 'perfil');
+
         return view('admin.usuarios.perfil');
     }
 
@@ -52,6 +56,8 @@ class ProfileController extends Controller
     // Crear usuario (vista para formulario de creación)
     public function create()
     {
+        Session::put('page', 'usuarios.create');
+
         return view('admin.usuarios.crear');
     }
 

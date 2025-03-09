@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
     // Mostrar la lista de usuarios
     public function index()
     {
+        Session::put('page', 'usuarios.index');
         $users = User::all(); // Obtener todos los usuarios
         return view('admin.usuarios.index', compact('users'));
     }

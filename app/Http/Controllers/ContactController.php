@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
 
 class ContactController extends Controller
 {
     public function index(Request $request)
     {
+        Session::put('page', 'contacts');
+
         $contacts = Contact::query();
 
         // Filtrar por búsqueda si se proporciona
