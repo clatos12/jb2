@@ -33,8 +33,9 @@
 
         /* Contenido ajustable */
         .content-wrapper {
-            transition: margin-left 0.3s ease;
-        }
+    min-height: 100vh; /* Asegura que el contenido ocupe al menos toda la altura de la pantalla */
+    padding-bottom: 60px; /* Espacio para el footer */
+}
 
         .main-sidebar.sidebar-collapse ~ .content-wrapper {
             margin-left: 80px;
@@ -46,18 +47,13 @@
 
         /* Footer */
         .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: white;
-            color: #006976;
-            text-align: center;
-            padding: 10px 0;
-            transition: bottom 0.3s ease;
-            z-index: 9999;
-            display: none;  /* Inicialmente oculto */
-        }
+    position: relative; /* Se posicionará después del contenido */
+    background-color: white;
+    color: #006976;
+    text-align: center;
+    padding: 15px 0;
+    z-index: 9999;
+}
 
         .footer.show {
             display: block; /* Mostrar el footer solo al final */
@@ -115,6 +111,13 @@
             color: #ccc;
             border-color: #ccc;
         }
+        /* Ocultar la barra de desplazamiento horizontal en pantallas de escritorio */
+@media (min-width: 1024px) {
+    body, html {
+        overflow-x: hidden;
+    }
+}
+
     </style>
 </head>
 
@@ -286,7 +289,7 @@
             </div>
         </div>
     </div>
-<!-- 
+
     @include('admin.layout.footer')
 
     <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
@@ -307,7 +310,7 @@
             $('.select2').select2();
         });
     </script>
- -->
+
 </body>
 
 </html>

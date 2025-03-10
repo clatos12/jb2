@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mt-4">
     <div class="card">
-        <div class="card-header bg-primary text-white">
+    <div class="card-header" style="background-color: #006976; color: white;">
             <h3 class="card-title">Perfil de Usuario</h3>
         </div>
         <div class="card-body">
@@ -55,7 +55,7 @@
                 </div>
 
                 <!-- Botón de Actualización -->
-                <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
+                <button type="submit" class="btn" style="background-color: #006976; border-color: #006976; color: white;">Actualizar Perfil</button>
             </form>
         </div>
     </div>

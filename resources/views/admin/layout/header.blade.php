@@ -95,21 +95,23 @@
         </li> --}}
         
        
-        <li class="nav-item">
+        <li class="nav-item d-none d-md-block">
           <a class="nav-link" data-widget="fullscreen" href="#" role="button">
             <i class="fas fa-expand-arrows-alt"></i>
           </a>
         </li>
+
         
         {{--ruta logout  --}}
-        <li class="nav-item d-none d-sm-inline-block">
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        <li class="nav-item">
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
-        </form>
-        <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+    </form>
+    <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         Cerrar Sesión
-      </a>
-      </li>
+    </a>
+</li>
+
 
       </ul>
       

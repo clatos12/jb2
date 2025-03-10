@@ -44,7 +44,7 @@
             <input type="password" name="password_confirmation" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Crear Usuario</button>
+        <button type="submit" class="btn" style="background-color: #006976; border-color: #006976; color: white;">Crear Usuario</button>
     </form>
 </div>
 @endsection
