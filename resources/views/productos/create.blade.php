@@ -20,27 +20,22 @@
             color: #ffffff !important;
         }
 
-        .sidebar-collapse .nav-link {
-            color: #ffffff !important;
-        }
-
         .sidebar .nav-icon {
             color: #ffffff !important;
         }
 
-        /* Asegurar que el contenido ocupe el espacio suficiente */
         .container {
-            min-height: calc(100vh - 150px); /* Ajuste para que el footer no desaparezca */
-            padding-bottom: 50px; /* Espacio extra al final */
+            min-height: calc(100vh - 150px);
+            padding-bottom: 50px;
         }
 
         .preview-container {
-            width: 150px;
-            height: 150px;
+            width: 250px;
+            height: 250px;
             overflow: hidden;
-            border: 1px solid #ddd;
+            border: 2px solid #ddd;
             display: none;
-            margin-top: 10px;
+            margin: 20px auto;
         }
 
         #preview {
@@ -48,27 +43,23 @@
             height: 100%;
             object-fit: cover;
         }
-        .preview-container {
-    width: 250px; /* Aumenta el tamaño de la previsualización */
-    height: 250px;
-    overflow: hidden;
-    border: 2px solid #ddd;
-    display: none;
-    margin: 20px auto; /* Centra horizontalmente */
-}
 
-#preview {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Mantiene el recorte de la imagen */
-}
-.preview-text {
-    display: none;
-    font-size: 14px;
-    color: #666;
-    margin-top: 5px;
-    text-align: center;
-}
+        .preview-text {
+            display: none;
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        #descripcion {
+            min-height: 100px;
+            max-height: 300px;
+            resize: vertical;
+            overflow-y: auto;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
     </style>
 
     <div class="container">
@@ -147,30 +138,38 @@
         </div>
     </div>
 
-    <div style="height: 100px;"></div> <!-- Espacio extra al final -->
+    <div style="height: 100px;"></div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const descripcion = document.getElementById("descripcion");
+
+    descripcion.addEventListener("input", function () {
+        this.style.height = "auto"; // Restablecer la altura
+        this.style.height = this.scrollHeight + "px"; // Ajustar a su contenido
+    });
+});
+
         function previewImage(event) {
-    const input = event.target;
-    const previewContainer = document.querySelector('.preview-container');
-    const preview = document.getElementById('preview');
-    const previewText = document.getElementById('preview-text');
+            const input = event.target;
+            const previewContainer = document.querySelector('.preview-container');
+            const preview = document.getElementById('preview');
+            const previewText = document.getElementById('preview-text');
 
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            previewContainer.style.display = 'block';
-            previewText.style.display = 'block';
-        };
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        preview.src = "#";
-        previewContainer.style.display = 'none';
-        previewText.style.display = 'none';
-    }
-}
-
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                    previewText.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.src = "#";
+                previewContainer.style.display = 'none';
+                previewText.style.display = 'none';
+            }
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             const subcategorias = {
