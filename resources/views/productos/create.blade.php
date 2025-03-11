@@ -48,6 +48,27 @@
             height: 100%;
             object-fit: cover;
         }
+        .preview-container {
+    width: 250px; /* Aumenta el tamaño de la previsualización */
+    height: 250px;
+    overflow: hidden;
+    border: 2px solid #ddd;
+    display: none;
+    margin: 20px auto; /* Centra horizontalmente */
+}
+
+#preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantiene el recorte de la imagen */
+}
+.preview-text {
+    display: none;
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+    text-align: center;
+}
     </style>
 
     <div class="container">
@@ -85,6 +106,7 @@
                         <div class="preview-container">
                             <img id="preview" src="#" alt="Vista previa de la imagen">
                         </div>
+                        <p id="preview-text" class="preview-text">Esta es una simulación de la previsualización final.</p>
                     </div>
 
                     <div class="form-group">
@@ -129,22 +151,26 @@
 
     <script>
         function previewImage(event) {
-            const input = event.target;
-            const previewContainer = document.querySelector('.preview-container');
-            const preview = document.getElementById('preview');
+    const input = event.target;
+    const previewContainer = document.querySelector('.preview-container');
+    const preview = document.getElementById('preview');
+    const previewText = document.getElementById('preview-text');
 
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    previewContainer.style.display = 'block';
-                };
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                preview.src = "#";
-                previewContainer.style.display = 'none';
-            }
-        }
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            previewContainer.style.display = 'block';
+            previewText.style.display = 'block';
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        preview.src = "#";
+        previewContainer.style.display = 'none';
+        previewText.style.display = 'none';
+    }
+}
+
 
         document.addEventListener('DOMContentLoaded', () => {
             const subcategorias = {
