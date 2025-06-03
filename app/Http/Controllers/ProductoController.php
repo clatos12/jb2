@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Productos;  
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
 class ProductoController extends Controller
 {
     /**
@@ -12,6 +12,9 @@ class ProductoController extends Controller
      */
     public function index(Request $request)
     {
+
+        // Almacena en la sesión la página actual
+        Session::put('page', 'productos.index');
         $productos = Productos::query();
 
         // Filtrar por categoría si se seleccionó alguna
@@ -24,17 +27,23 @@ class ProductoController extends Controller
             $productos->where('titulo', 'like', '%' . $request->search . '%');
         }
 
+        // Ordenar según el parámetro 'order', por defecto ordena por título
+        $order = $request->get('order', 'asc'); // Valor por defecto 'asc'
+        $productos->orderBy('created_at', $order); // Ordenar por la fecha de creación
+
+
         // Obtener productos con paginación
         $productos = $productos->paginate(10);
 
         return view('productos.index', compact('productos'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+        // Actualiza la sesión con la página actual
+        Session::put('page', 'productos.create');
         return view('productos.create');
     }
 
@@ -147,7 +156,8 @@ class ProductoController extends Controller
         $producto->save();
     
         // Redirigir con mensaje de éxito
-        return redirect()->route('productos.index')->with('success', 'Estado del producto actualizado');
+        return redirect()->to(url()->previous())->with('success', 'Estado del producto actualizado');
+
     }
 
     /**

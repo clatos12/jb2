@@ -7,7 +7,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "jeroennoten/laravel-adminlte": "^3.14",
+        "almasaeed2010/adminlte": "~3.0",
+        "jeroennoten/laravel-adminlte": "^3.15",
         "laravel/fortify": "^1.25",
         "laravel/framework": "^11.31",
         "laravel/jetstream": "^5.3",

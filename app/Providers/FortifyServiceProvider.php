@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract; // 🔹 Falta esta línea
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -41,6 +42,21 @@ class FortifyServiceProvider extends ServiceProvider
 
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
+        });
+
+        // 🔹 Redirección a /productos después de iniciar sesión
+        $this->app->singleton(LoginResponseContract::class, function () {
+            return new class implements LoginResponseContract {
+                public function toResponse($request)
+                {
+                    return redirect()->route('productos.index'); // Redirige a productos después del login
+                }
+            };
+        });
+
+        // 🔹 Vista de login personalizada
+        Fortify::loginView(function () {
+            return view('auth.login');
         });
     }
 }

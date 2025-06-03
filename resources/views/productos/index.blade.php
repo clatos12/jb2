@@ -1,42 +1,9 @@
-@extends('adminlte::page')
+@extends('admin.layout.layout')
 
 @section('title', 'Productos')
 
 @section('content')
-    <style>
-        /* Barra lateral con color principal */
-        .main-sidebar {
-            background-color: #006976 !important; /* Color principal */
-        }
-
-        /* Enlaces en la barra lateral */
-        .sidebar .nav-link {
-            color: #ffffff !important; /* Texto blanco */
-        }
-
-        /* Color de los enlaces al pasar el mouse */
-        .sidebar .nav-link:hover {
-            background-color: #065b62 !important; /* Color de fondo al pasar el mouse */
-            color: #ffffff !important; /* Mantener el texto blanco */
-        }
-
-        /* Enlace seleccionado en la barra lateral */
-        .sidebar .nav-link.active {
-            background-color: #065b62 !important; /* Color secundario cuando se selecciona */
-            color: #ffffff !important; /* Texto blanco */
-        }
-
-        /* Estilo de la barra lateral cuando está colapsada */
-        .sidebar-collapse .nav-link {
-            color: #ffffff !important;
-        }
-
-        /* Asegurarse de que los íconos de la barra lateral también se muestren blancos */
-        .sidebar .nav-icon {
-            color: #ffffff !important;
-        }
-    </style>
-
+    
     <div class="container">
         <div class="row mb-3">
             <div class="col-12 d-flex justify-content-between align-items-center">
@@ -69,6 +36,7 @@
                                     <option value="cajas_carton" {{ request('categoria') == 'cajas_carton' ? 'selected' : '' }}>Cajas - Cartón</option>
                                     <option value="bines_inyectado" {{ request('categoria') == 'bines_inyectado' ? 'selected' : '' }}>Bines - Inyectado</option>
                                     <option value="bines_corrugado" {{ request('categoria') == 'bines_corrugado' ? 'selected' : '' }}>Bines - Corrugado</option>
+                                    <option value="ceras_cerasESD" {{ request('categoria') == 'ceras_cerasESD' ? 'selected' : '' }}>Ceras - CerasESD</option>
                                 </select>
                             </div>
 
@@ -89,53 +57,67 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card p-3">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Título</th>
-                                <th>Descripción</th>
-                                <th>Fotografía</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($productos as $producto)
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <td>{{ $producto->titulo }}</td>
-                                    <td>{{ $producto->descripcion }}</td>
-                                    <td>
-                                        @if ($producto->fotografia)
-                                            <img src="{{ asset('storage/' . $producto->fotografia) }}" alt="Imagen de {{ $producto->titulo }}" style="width: 100px; height: 100px;">
-                                        @else
-                                            No disponible
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('productos.toggleEstado', $producto->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('PATCH')  
-                                            <button type="submit" class="btn btn-sm {{ $producto->estado ? 'btn-success' : 'btn-danger' }}">
-                                                {{ $producto->estado ? 'Disponible' : 'No disponible' }}
-                                            </button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm">Editar</a>
-                                        <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este producto?')">Eliminar</button>
-                                        </form>
-                                    </td>
+                                    <th>Título</th>
+                                    <th>Descripción</th>
+                                    <th>Fotografía</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-
-                    {{ $productos->links() }}
+                            </thead>
+                            <tbody>
+                                @foreach ($productos as $producto)
+                                    <tr>
+                                        <td>{{ $producto->titulo }}</td>
+                                        <td>{{ $producto->descripcion }}</td>
+                                        <td>
+                                            @if ($producto->fotografia)
+                                                <img src="{{ asset('storage/' . $producto->fotografia) }}" alt="Imagen de {{ $producto->titulo }}">
+                                            @else
+                                                No disponible
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('productos.toggleEstado', $producto->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('PATCH')  
+                                                <button type="submit" class="btn btn-sm {{ $producto->estado ? 'btn-success' : 'btn-danger' }}">
+                                                    {{ $producto->estado ? 'Disponible' : 'No disponible' }}
+                                                </button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                                            <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este producto?')">Eliminar</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        // Mostrar el footer al hacer scroll hasta el final de la página
+        window.addEventListener('scroll', function() {
+            const footer = document.querySelector('.footer');
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                footer.classList.add('show');
+            } else {
+                footer.classList.remove('show');
+            }
+        });
+    </script>
 @endsection
